@@ -1,0 +1,6 @@
+#FileLock
+#Thu Sep 02 18:33:30 UTC 2021
+server=192.168.178.23\:53315
+hostName=leotrims-mbp.fritz.box
+method=file
+id=17ba7c99065529a90767285bf10fc704a1e7bf68d22

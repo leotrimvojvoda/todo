@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="../static/css/style.css" rel="stylesheet" />
+    <link href="../static/css/header.css" rel="stylesheet" />
+
+</head>
+
+<header>
+    <h3 th:text="${user}"></h3>
+    <button onclick="location.href='/logout'" type="button" class="btn btn-light" id="logout">Logout</button>
+</header>
+
+<body>
+<h1>Hello Spring Boot Security</h1>
+
+
+</body>
+</html>
