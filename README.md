@@ -1,2 +1,2 @@
 # todo
-Todo application using Spring Boot
+A simple notes application using Spring Boot
