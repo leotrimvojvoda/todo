@@ -10,6 +10,7 @@ A simple notes application using Spring Boot
 * Spring Security
 * Lombok
 * Thymeleaf
-* REST
+* Bean Validation  
+* REST API
 * Bootstrap
 * Maven

@@ -1,6 +1,20 @@
+body {
+    text-align: center;
+    background-color: #f9f9fb;
+}
 
+.wrapper{
+    width: 100%;
+    height: auto;
+}
 
-body{
-    background:rebeccapurple;
+.form-inline{
+    display: block;
+    text-align: center;
+    margin-top: 30pt;
+}
+
+#search-field{
+    width: 50%;
 }
 

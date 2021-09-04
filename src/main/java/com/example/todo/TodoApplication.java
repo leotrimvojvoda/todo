@@ -22,14 +22,20 @@ public class TodoApplication {
         * Setup Spring Context
         *
         * Setup H2 Database
-        *  Table 1: User(Security), Table 2: Tasks (One Use can have many tasks)
+        *  Table 1: User, Table 2: Tasks (One Use can have many tasks)
         *
         * Configure Security
+        *
+        * Create login page
+        *
+        * Create Register page
         *
         *                               STAGE 2
         *
         * Create the html welcome page
-        *  Display header with full name and the logout option
+        *  Display header with username and the logout option
+        *
+        * Create user settings panel
         *
         *  Display the add tasks button
         *

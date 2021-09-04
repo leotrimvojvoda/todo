@@ -22,12 +22,17 @@ class TodoApplicationTests {
 
         User u = new User();
         u.setEnabled(true);
-        u.setUsername("tom");
-        u.setPassword(passwordEncoder.encode("tom"));
+        u.setUsername("tina");
+        u.setPassword(passwordEncoder.encode("tina"));
 
-       //userRepository.save(u);
+       userRepository.save(u);
 
-        System.out.println(userRepository.findUserByUsername("user").isPresent());
+        //System.out.println(userRepository.findUserByUsername("user").isPresent());
+    }
+
+    @Test
+    void existsTest(){
+        System.out.println(userRepository.existsUserByUsername("tom"));
     }
 
 }

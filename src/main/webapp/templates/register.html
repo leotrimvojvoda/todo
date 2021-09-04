@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Login</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 <body>
-$END$
+<div class="container">
+  <form  th:object="${user}" th:action="@{/save}" class="form-signin" method="post" action="#">
+    <h2 class="form-signin-heading">Create Account</h2>
+    <p>
+      <label for="username" class="sr-only">Username</label>
+      <input type="text" id="username" th:field="*{username}" name="username" class="form-control" placeholder="Username *"  required=""
+             autofocus="">
+    <div class="alert alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+    </p>
+    <p>
+      <label for="password" class="sr-only">Password</label>
+      <input type="password" th:field="*{password}" id="password" name="password" class="form-control" placeholder="Password *"
+             required="">
+    <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    </p>
+    <p>
+      <label for="repeat-password" class="sr-only">Repeat Password</label>
+      <input type="password" th:value="${password2}" id="repeat-password" name="password2" class="form-control" placeholder="Repeat Password *"
+             required="">
+    </p>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
+    <button onclick="location.href='/login'" type="button" class="btn btn-lg btn-secondary btn-block">Cancel</button>
+  </form>
+
+</div>
 </body>
 </html>
