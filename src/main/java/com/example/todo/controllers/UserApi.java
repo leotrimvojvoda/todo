@@ -10,7 +10,6 @@ import java.security.Principal;
 public class UserApi {
 
 
-
     @GetMapping("/getCurrentUser")
     @ResponseBody
     public String currentUserName(Principal principal) {

@@ -1,0 +1,22 @@
+.new-note{
+    display: none;
+    text-align: center;
+}
+
+.new-note-form{
+    background-color: white;
+    width: 30%;
+    display: inline-block;
+    margin: 0 auto;
+    border-radius: 20pt;
+    padding: 20pt;
+    margin-top: 20pt;
+
+}
+
+.new-note-textArea{
+    width: 70%;
+    height: 150pt;
+    border-radius: 10pt;
+
+}

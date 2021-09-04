@@ -18,3 +18,32 @@ body {
     width: 50%;
 }
 
+#add{
+    margin-top: 20pt;
+
+}
+
+.add-button{
+    margin-top: 20pt;
+}
+
+#add-button{
+    border-radius: 50%;
+    width: 50pt;
+    height: 50pt;
+    font-size: 25pt;
+}
+
+
+.notes{
+    text-align: center;
+}
+
+.note{
+   background-color: white;
+    padding: 20pt;
+    border-radius: 15pt;
+    margin: 5pt;
+    width: 70%;
+    display: inline-block;
+}

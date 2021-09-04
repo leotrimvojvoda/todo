@@ -18,7 +18,7 @@ public class User {
     @Size(min = 3, max=16, message = "Username must be between 3 and 16 characters long")
     @Username
     private String username;
-    @Size(min=6, max = 30, message = "Password must be between 6 and 30 characters long")
+    @Size(min=6, message = "Password must be at least 6 characters long")
     private String password;
     private boolean enabled;
 
