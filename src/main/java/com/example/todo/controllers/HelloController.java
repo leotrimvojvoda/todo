@@ -51,15 +51,19 @@ public class HelloController {
     //The BindingResult must be declared right after the Object in this case after the User object
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("user") @Valid User user,
-                       BindingResult result, @RequestParam String password2){
+    public String save(@ModelAttribute("user") @Valid User user,BindingResult result, @RequestParam String password2){
 
-        if(result.hasErrors()) return "register"; //  Has no errors so it passes
+        if(result.hasErrors()) return "register";
 
+        System.out.println(user.toString());
+
+       /* //Check passwords match
+        if(user.getPassword().equals(password2))
+            user.setPassword(passwordEncoder.encode(user.getPassword()));*/
             userRepository.save(user);
-            // Here the error is thrown even though the 'user' has been validated once
 
 
+        //return to landing page
         return "login";
     }
 
