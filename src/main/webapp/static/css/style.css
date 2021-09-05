@@ -3,47 +3,30 @@ body {
     background-color: #f9f9fb;
 }
 
+#dropdown-item-logout{color: red;}
+
 .wrapper{
     width: 100%;
     height: auto;
 }
-
 .form-inline{
     display: block;
     text-align: center;
     margin-top: 30pt;
 }
-
+#navbar-user{
+    margin-left: 88%;
+}
 #search-field{
     width: 50%;
 }
 
-#add{
-    margin-top: 20pt;
-
-}
-
 .add-button{
-    margin-top: 20pt;
+    margin: 20pt 0 20pt 0;
 }
-
 #add-button{
     border-radius: 50%;
     width: 50pt;
     height: 50pt;
     font-size: 25pt;
-}
-
-
-.notes{
-    text-align: center;
-}
-
-.note{
-   background-color: white;
-    padding: 20pt;
-    border-radius: 15pt;
-    margin: 5pt;
-    width: 70%;
-    display: inline-block;
 }

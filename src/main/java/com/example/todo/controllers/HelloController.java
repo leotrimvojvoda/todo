@@ -1,6 +1,7 @@
 package com.example.todo.controllers;
 
 import com.example.todo.data.TaskRepository;
+import com.example.todo.data.TaskRepositoryService;
 import com.example.todo.data.UserRepository;
 import com.example.todo.entities.Task;
 import com.example.todo.entities.User;
@@ -21,16 +22,20 @@ import java.util.Optional;
 @Controller
 public class HelloController {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final TaskRepository taskRepository;
 
-    @Autowired
-    public HelloController(UserRepository userRepository, PasswordEncoder passwordEncoder, TaskRepository taskRepository) {
+     private final UserRepository userRepository;
+     private final PasswordEncoder passwordEncoder;
+     private final TaskRepository taskRepository;
+     private final TaskRepositoryService taskRepositoryService;
+
+     @Autowired
+     public HelloController(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                            TaskRepository taskRepository,TaskRepositoryService taskRepositoryService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.taskRepository = taskRepository;
-    }
+        this.taskRepositoryService = taskRepositoryService;
+     }
 
     @GetMapping("/login")
     public String login(){
@@ -53,14 +58,14 @@ public class HelloController {
 
         int id = u.get().getId();
         //Add id to model
-        model.addAttribute("id",id);
+        model.addAttribute("userId",id);
 
         List<Task> tasks = taskRepository.getTasksByUserId(id);
 
-        System.out.println(tasks.size());
-
         //Add tasks to model
         model.addAttribute("tasks",tasks);
+
+        model.addAttribute("newTask", new Task());
 
         return "index";
     }
@@ -73,7 +78,7 @@ public class HelloController {
 
     //The BindingResult must be declared right after the Object in this case after the User object
     @PostMapping("/save")
-    public String save(@ModelAttribute("user") @Valid User user,BindingResult result, @RequestParam String password2){
+    public String save(@Valid @ModelAttribute("user") User user,BindingResult result, @RequestParam String password2){
 
         if(result.hasErrors()) return "register";
 
@@ -81,12 +86,43 @@ public class HelloController {
 
        /* //Check passwords match
         if(user.getPassword().equals(password2))
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);*/
+            user.setPassword(passwordEncoder.encode(user.getPassword()));*/
 
+        try{
+            userRepository.save(user);
+        }catch (Exception e){
+            System.out.println("SAVING USER ERROR\n");
+            e.printStackTrace();
+        }
 
         //return to landing page
         return "login";
+    }
+
+    @PostMapping("/saveTask")
+    public String saveTask(@ModelAttribute("newTask") Task task){
+
+        System.out.println(">>> "+task.toString());
+         //If id = 0 than it is a new task, and if id is something else than it is an existing task that will be updated
+         if(task.getId() == 0){
+             taskRepository.save(task);
+         }else {
+             try {
+                 taskRepositoryService.updateTextById(task.getId(), task.getText());
+             }catch (Exception e){
+                 e.printStackTrace();
+             }
+         }
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/deleteTask")
+    public String deleteTask(@RequestParam String id){
+
+         taskRepository.deleteById(Integer.parseInt(id));
+
+        return "redirect:/";
     }
 
 }

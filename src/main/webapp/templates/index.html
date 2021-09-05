@@ -6,39 +6,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="../static/css/style.css" rel="stylesheet"/>
-    <link href="../static/css/header.css" rel="stylesheet"/>
-    <link href="../static/css/newNote.css" rel="stylesheet"/>
+    <link href="../static/css/tasks.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <!--NAVIGATION BAR-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
+        <ul class="navbar-nav mr-auto" id ="navbar-user">
             <li class="nav-item dropdown">
                 <a th:text="${user}" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Settings</a>
                     <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/logout" id="dropdown-item-logout">Log out</a>
                 </div>
             </li>
         </ul>
@@ -66,12 +50,34 @@
         <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="add-button">+</button>
     </div>
 
-    <!--NOTES LIST-->
+    <!--NEW NOTE-->
+
     <div class="notes">
+        <div class="new-note" id="new-note">
+            <form  th:object="${newTask}" th:action="@{/saveTask}" class="new-note-form" method="post" action="#">
+                <h2 class="">New task</h2>
+                <textarea name="text" th:field="*{text}" placeholder="Enter new note"  class="new-note-textArea" id="new-note-textArea" required=""></textarea>
+                <br>
+                <input type="text" name="userId" th:value="${userId}" style="display: none">
+                <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="save-note">Save</button>
+                <button onclick="location.href='/'" type="button" class="btn btn-outline-secondary my-2 my-sm-0" id="discard">Cancel</button>
+            </form>
+        </div>
+
+        <!--TASKS, DELETE, EDIT-->
         <table>
             <tr th:each="task: ${tasks}">
                 <div class="note">
-                    <p th:text="${task.text}"></p>
+                    <div class="note-text"><p id="current-note-text" th:text="${task.text}"></p></div>
+                    <div class="note-buttons">
+
+                            <button type="button" class="btn btn-outline-warning my-2 my-sm-0 edit-delete-note" id="edit-note">Edit</button>
+                        <br><br>
+                        <form  th:action="@{/deleteTask}">
+                            <input type="text" name="id" th:value="${task.id}" style="display: none">
+                            <button type="submit" class="btn btn-outline-danger my-2 my-sm-0" id="delete-note">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </tr>
         </table>
@@ -80,15 +86,7 @@
 </div>
 
 <!--HIDDEN NEW NOTES DIV-->
-<div class="new-note" id="new-note">
-    <form class="new-note-form">
-        <h2 class="">New note</h2>
-        <textarea name="textArea" placeholder="Enter new note" class="new-note-textArea"></textarea>
-        <br>
-        <button type="submit" class="btn btn-outline-danger my-2 my-sm-0">Discard</button>
-        <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="save-note">Save</button>
-    </form>
-</div>
+
 
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

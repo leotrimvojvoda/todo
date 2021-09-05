@@ -1,8 +1,20 @@
+
+.notes{
+    text-align: center;
+}
+.note{
+    background-color: white;
+    padding: 20pt;
+    border-radius: 15pt;
+    margin: 5pt;
+    width: 70%;
+    display: inline-block;
+    box-shadow: 5px 10px 8px #f3f3f3;
+}
 .new-note{
     display: none;
     text-align: center;
 }
-
 .new-note-form{
     background-color: white;
     width: 30%;
@@ -13,10 +25,16 @@
     margin-top: 20pt;
 
 }
-
 .new-note-textArea{
     width: 70%;
     height: 150pt;
     border-radius: 10pt;
-
 }
+.note-text{
+    float: left;
+    max-width: 85%;
+}
+.note-buttons{
+    float: right;
+}
+

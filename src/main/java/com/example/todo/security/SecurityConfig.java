@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import javax.sql.DataSource;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -28,7 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()//USE FORM LOGIN -- DEFAULT
                 .loginPage("/login")// THE LOGIN PAGE CAN BE FOUND IN THE MAIN CRONTROLER /login.
-                .permitAll();
+                .permitAll()
+                .and();
+               // .rememberMe()//Allow remember me option
+               // .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21)); // Remember for 21 days
+
     }
 
     @Override

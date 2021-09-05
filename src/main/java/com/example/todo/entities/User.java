@@ -16,7 +16,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Size(min = 3, max=16, message = "Username must be between 3 and 16 characters long")
-    @Username
+    //@Username
     private String username;
     @Size(min=6, message = "Password must be at least 6 characters long")
     private String password;

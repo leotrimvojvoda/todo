@@ -21,8 +21,8 @@ class TodoApplicationTests {
 
         User u = new User();
         u.setEnabled(true);
-        u.setUsername("tina");
-        u.setPassword(passwordEncoder.encode("tinatina"));
+        u.setUsername("newuser");
+        u.setPassword(passwordEncoder.encode("newuser"));
 
 
        userRepository.save(u);
@@ -40,7 +40,7 @@ class TodoApplicationTests {
     void getIdByUsername(){
 
 
-        System.out.println();
+        System.out.println("!");
 
     }
 
