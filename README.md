@@ -1,8 +1,8 @@
 # todo
 A simple notes application using Spring Boot
 
-# Technology Stack
 
+# Technology Stack
 
 * Spring Boot MVC
 * Spring Data (Hibernate)
@@ -11,6 +11,18 @@ A simple notes application using Spring Boot
 * Lombok
 * Thymeleaf
 * Bean Validation  
-* REST API
-* Bootstrap
+* REST AP
 * Maven
+* HTML
+* CSS 
+* JavaScript
+* jQuerry  
+* Bootstrap
+
+
+#To be implemented
+* Search
+* Profile Settings: Change password, delete profile
+# Known Bugs
+* New user registration repository confilct
+* Edit note

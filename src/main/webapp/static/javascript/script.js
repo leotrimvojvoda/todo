@@ -5,16 +5,25 @@ $(document).ready(function () {
             $("#new-note").slideToggle();
         });
 
-    $("#discard").click(function () {
+    $("#cancel").click(function () {
         $("#new-note").slideToggle();
     });
 
-    $("#edit-note").click(function (){
-        $("#new-note-textArea").text($("#current-note-text").text());
+  /*  $(".edit-note").click(function (){
         $("#new-note").slideToggle();
+        $("#new-note-textArea").text($("#current-note1").text());
     });
+*/
 
-//edit-note
+
+    //specificSpan
 });
 
 
+function editNote(id){
+$(document).ready(function (){
+
+     $("#new-note").slideToggle();
+     $("#new-note-textArea").text($("#current-note"+id).text());
+});
+}

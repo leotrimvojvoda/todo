@@ -38,3 +38,25 @@
     float: right;
 }
 
+textarea{
+    border: none;
+    resize: none;
+    overflow: auto;
+    word-break: break-all;
+}
+
+.edit-textarea{
+    width: 200px;
+    height: 50px;
+
+    background-color: darkred;
+}
+
+.note-text{
+    background-color: blueviolet;
+    padding-top: 0pt;
+}
+
+.edit-buttons{
+    background-color: hotpink;
+}
