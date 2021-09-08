@@ -20,7 +20,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-
 @Controller
 public class HelloController {
 
@@ -48,24 +47,13 @@ public class HelloController {
     @GetMapping("/")
     public String hello(Model model){
 
-
-         log.error("This is an error");
-
-         log.info("This is some information");
-
-         log.warn("This is a warning");
-
-         log.trace("Tracing something");
-
-
-
         //Get current username and uppercase the first char
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         String username = currentPrincipalName.substring(0, 1).toUpperCase() + currentPrincipalName.substring(1);
         //Add username to model
         model.addAttribute("user",username);
-
+        log.info("Logged in as:" +username);
         //Get user id
         Optional<User> u = userRepository.findUserByUsername(currentPrincipalName);
         u.orElseThrow(() -> new UsernameNotFoundException("User not found: "+username));
@@ -86,9 +74,7 @@ public class HelloController {
 
     @GetMapping("/settings")
     public String settings(@RequestParam String user, Model model){
-
-        System.out.println(user);
-
+        log.info(user);
         model.addAttribute("user", user);
          return "settings";
     }
@@ -102,14 +88,14 @@ public class HelloController {
     //The BindingResult must be declared right after the Object in this case after the User object
     @PostMapping("/save")
     public String save(@Valid @ModelAttribute("user") User user,BindingResult result, @RequestParam String password2){
-
+         log.info("Trying to save user: "+user.toString());
         if(result.hasErrors()) return "register";
 
-       /* //Check passwords match
-        if(user.getPassword().equals(password2))
-            user.setPassword(passwordEncoder.encode(user.getPassword()));*/
-
+        //Check passwords match
+        if(user.getPassword().equals(password2)) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
+        } else return "register";
 
         //return to landing page
         return "login";
@@ -117,8 +103,7 @@ public class HelloController {
 
     @PostMapping("/saveTask")
     public String saveTask(@ModelAttribute("task") Task task){
-
-        System.out.println(">>> "+task.toString());
+         log.info("Task saved or updated: "+task.toString());
          //If id = 0 than it is a new task, and if id is something else than it is an existing task that will be updated
          if(task.getId() == 0){
              taskRepository.save(task);
@@ -135,17 +120,14 @@ public class HelloController {
 
     @GetMapping("/deleteTask")
     public String deleteTask(@RequestParam String id){
-
-
          taskRepository.deleteById(Integer.parseInt(id));
-
         return "redirect:/";
     }
 
     @PostMapping("/updateTask")
     public String updateTask(@ModelAttribute("task") Task task){
 
-        System.out.println(task.toString());
+        log.info(task.toString());
 
         return "redirect:/";
     }
