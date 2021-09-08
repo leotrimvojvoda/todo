@@ -23,6 +23,7 @@ A simple notes application using Spring Boot
 #To be implemented
 * Search
 * Profile Settings: Change password, delete profile
+* UI improvements, and more feedback for the user
+
 # Known Bugs
-* New user registration repository confilct
-* Edit note
+* None
