@@ -1,7 +1,7 @@
 # todo
 A simple notes application using Spring Boot
 
-#Application Features
+# Application Features
 * Login page
     * Create new user and store it in the database
     * Password encryption
@@ -37,8 +37,8 @@ A simple notes application using Spring Boot
 * Lombok
 
 # To be implemented
-* Search
 * Profile Settings: Change password, delete profile
+* Search
 * UI improvements, and more feedback for the user
 
 # Known Bugs

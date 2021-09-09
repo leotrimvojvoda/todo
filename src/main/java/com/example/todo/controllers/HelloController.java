@@ -46,7 +46,6 @@ public class HelloController {
 
     @GetMapping("/")
     public String hello(Model model){
-
         //Get current username and uppercase the first char
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
@@ -74,20 +73,10 @@ public class HelloController {
 
     @GetMapping("/settings")
     public String settings(@RequestParam String username, Model model){
-        log.error(username);
         model.addAttribute("user", userRepository.findUserByUsername(username.toLowerCase()).get());
         model.addAttribute("username", username);
          return "settings";
     }
-
-    /*
-    *  @GetMapping("/settings")
-    public String settings(@RequestParam String user, Model model){
-        log.info(user);
-        model.addAttribute("user", user);
-         return "settings";
-    }
-    * */
 
     @GetMapping("/register")
     public String register(Model model){
@@ -141,5 +130,4 @@ public class HelloController {
 
         return "redirect:/";
     }
-
 }

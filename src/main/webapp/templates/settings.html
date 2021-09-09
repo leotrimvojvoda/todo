@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Todo</title>
+  <link rel="icon" type="image/png" href="../static/images/favicon.png"/>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="../static/css/style.css" rel="stylesheet"/>
   <link href="../static/css/tasks.css" rel="stylesheet"/>
+  <link href="../static/css/profile-settings.css" rel="stylesheet"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
@@ -17,14 +19,13 @@
       <li class="nav-item dropdown">
         <a th:text="${username}" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/">Home</a>
           <form th:action="@{/settings}">
-            <input type="text" name="user" th:value="${username}"  style="display: none">
+            <input type="text" name="username" th:value="${username}"  style="display: none">
             <button type="submit" class="dropdown-item">Settings</button>
           </form>
-          <a class="dropdown-item" href="/">Home</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/logout" id="dropdown-item-logout">Log out</a>
         </div>
@@ -37,15 +38,70 @@
 <!--BODY-->
 
 <body>
-
-<div class="container">
-
-
+<div class="wrapper">
 
   <div class="settings-form">
+    <h2 class="form-signin-heading">Profile Settings</h2>
 
-    <form  th:object="${user}" th:action="@{/save}" class="form-signin" method="post" action="#">
-      <h2 class="form-signin-heading">Create Account</h2>
+
+    <!-- MAIN -->
+    <div class="edit-profile-options">
+      <table class="table table-light edit-profile-table">
+        <tr>
+          <td>Change Username</td>
+        </tr>
+        <tr>
+          <td>Change Password</td>
+        </tr>
+        <tr>
+          <td>Reset Tasks</td>
+        </tr>
+        <tr>
+          <td>Delete Account</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- CHANGE USERNAME -->
+
+    <div class="edit-profile">
+      <form class="change-form change-username">
+        <label for="username" class="sr-only">Username</label>
+        <input type="text" id="username" class="form-control" placeholder="New Username*">
+        <button onclick="location.href='#'" type="button" class="btn btn-outline-success my-2 my-sm-0">Save</button>
+      </form>
+    </div>
+
+    <!-- CHANGE PASSWORD -->
+    <div class="edit-profile">
+      <form class="change-form change-password">
+        <label for="current-password" class="sr-only">Username</label>
+        <input type="text" id="current-password" class="form-control password input" placeholder="Current Password">
+        <label for="password" class="sr-only">Username</label>
+        <input type="text" id="password" class="form-control password input" placeholder="New Password">
+        <button onclick="location.href='#'" type="button" class="btn btn-outline-success my-2 my-sm-0 password input">Save</button>
+      </form>
+    </div>
+
+    <!-- RESET TASKS -->
+
+    <div class="edit-profile">
+      <form class="change-form reset-tasks">
+        <button onclick="location.href='#'" type="button" class="btn btn-outline-warning my-2 my-sm-0 password input">Delete All Tasks</button>
+      </form>
+    </div>
+
+    <!-- DELETE ACCOUNT -->
+
+    <div class="edit-profile">
+      <form class="change-form delete-account">
+        <button onclick="location.href='#'" type="button" class="btn btn-outline-danger my-2 my-sm-0 password input">Delete Account</button>
+      </form>
+    </div>
+
+
+<!--    <form  th:object="${user}" th:action="@{/save}" class="edit-profile" method="post" action="#" >
+      <h2 class="form-signin-heading">Profile Settings</h2>
       <p>
         <label for="username" class="sr-only">Username</label>
         <input type="text" id="username" th:field="*{username}" name="username" class="form-control" placeholder="Username *"  required=""
@@ -54,20 +110,24 @@
       </p>
       <p>
         <label for="password" class="sr-only">Password</label>
-        <input type="password" th:field="*{password}" id="password" name="password" class="form-control" placeholder="Password *"
+        <input type="password" th:field="*{password}" id="password" name="password" class="form-control" placeholder="Current Password*"
                required="">
       <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
       </p>
       <p>
-        <label for="repeat-password" class="sr-only">Repeat Password</label>
-        <input type="password" th:value="${password2}" id="repeat-password" name="password2" class="form-control" placeholder="Repeat Password *"
+        <label for="repeat-password" class="sr-only">Password</label>
+        <input type="text" th:value="${password2}" id="repeat-password" name="password2" class="form-control" placeholder="New Password*"
                required="">
       </p>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
-      <button onclick="location.href='/login'" type="button" class="btn btn-lg btn-secondary btn-block">Cancel</button>
-    </form>
+      <div class="edit-profile-buttons">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Save Changes</button>
+        <button onclick="location.href='#'" type="button" class="btn btn-lg btn-danger btn-block">Delete Account</button>
+      </div>
+    </form>-->
 
+    <button onclick="location.href='/'" type="button" class="btn btn-outline-secondary my-2 my-sm-0" id="cancel">Cancel</button>
   </div>
+
 </div>
 
 </div>
