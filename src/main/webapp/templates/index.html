@@ -14,16 +14,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto" id ="navbar-user">
             <li class="nav-item dropdown">
-                <a th:text="${user}" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                <a th:text="${username}" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                     <form th:action="@{/settings}">
-                        <input type="text" name="user" th:value="${user}"  style="display: none">
+                        <input type="text" name="username" th:value="${username}"  style="display: none">
                         <button type="submit" class="dropdown-item">Settings</button>
                     </form>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="/">Home</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/logout" id="dropdown-item-logout">Log out</a>
                 </div>
@@ -37,7 +37,6 @@
 
 <body>
 <div class="wrapper">
-    <hr>
 
     <!--SEARCH BAR-->
     <div class="search">
@@ -75,11 +74,12 @@
                        <!-- <p th:id="'current-note' + ${taskStat.index}" th:text="${task.text}"></p>-->
                         <form  th:object="${task}" th:action="@{/saveTask}" class="edit-note-form" method="post" action="#">
                             <br>
+
                             <textarea name="text" th:text="${task.text}"
-                                      class="edit-textarea" id="edit-textarea" required=""></textarea>
+                                      class="edit-textarea" th:id="'edit-area_'+${taskStat.index}" onclick="editNoteFromTextArea(this.id)" required=""></textarea>
                             <input type="text" name="id" th:value="${task.id}" style="display: none">
                             <input type="text" name="userId" th:value="${userId}" style="display: none">
-                          <div class="edit-buttons">
+                          <div class="edit-buttons" th:id="${taskStat.index}">
                               <button type="submit" class="btn btn-outline-success my-2 my-sm-0" >Save</button>
                               <button onclick="location.href='/'" type="button" class="btn btn-outline-secondary my-2 my-sm-0" >Cancel</button>
                           </div>
@@ -87,39 +87,31 @@
                     </div>
 
 
-
                     <div class="note-buttons">
+                        <div id="edit">
+                            <button type="button" th:id="${taskStat.index}" onclick="editNote(this.id)"
+                                    class="btn btn-outline-warning my-2 my-sm-0 edit-note"></button>
+                        </div>
 
-                        <!---->
-                       <!-- <span th:text="${taskStat.index} + ': ' + ${task.text}" id="specificSpan"></span>
-                       ( th:id="'editButton' + ${taskStat.index} " onclick="editNote(this.id)")
-                       -->
-
-                        <button type="submit" th:id="${taskStat.index}" onclick="editNote(this.id)" class="btn btn-outline-warning my-2 my-sm-0 edit-note">Edit</button>
-                        <!---->
-
-
-                          <!--  <form th:object="${task}" th:action="@{/updateTask}">
-                                <input type="text" name="id" th:value="${task.id}" style="display: none">
-                                <input type="text" name="userId" th:value="${task.userId}" style="display: none">
-                                <input type="text" name="text" th:value="${task.text}" style="display: none">
-                                <button type="submit" class="btn btn-outline-warning my-2 my-sm-0 edit-note">Edit</button>
-                            </form> -->
-
-                        <br><br>
-                        <form  th:action="@{/deleteTask}">
-                            <input type="text" name="id" th:value="${task.id}" style="display: none">
-                            <button type="submit" class="btn btn-outline-danger my-2 my-sm-0" id="delete-note">Delete</button>
-                        </form>
+                       <div id="delete">
+                           <form  th:action="@{/deleteTask}">
+                               <input type="text" name="id" th:value="${task.id}" style="display: none">
+                               <button type="submit" class="btn btn-outline-danger my-2 my-sm-0 delete-note"></button>
+                           </form>
+                       </div>
                     </div>
+
+
+                    <!---
+                     <span th:text="${taskStat.index} + ': ' + ${task.text}" id="specificSpan"></span>
+                    ( th:id="'editButton' + ${taskStat.index} " onclick="editNote(this.id)")
+                    -->
+
                 </div>
             </tr>
         </table>
     </div>
 </div>
-
-<!--HIDDEN NEW NOTES DIV-->
-
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"

@@ -15,15 +15,16 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" id ="navbar-user">
       <li class="nav-item dropdown">
-        <a th:text="${user}" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+        <a th:text="${username}" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <form th:action="@{/settings}">
-            <input type="text" name="user" th:value="${user}"  style="display: none">
+            <input type="text" name="user" th:value="${username}"  style="display: none">
             <button type="submit" class="dropdown-item">Settings</button>
           </form>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="/">Home</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/logout" id="dropdown-item-logout">Log out</a>
         </div>
@@ -37,8 +38,37 @@
 
 <body>
 
-<div class="wrapper">
-  <hr>
+<div class="container">
+
+
+
+  <div class="settings-form">
+
+    <form  th:object="${user}" th:action="@{/save}" class="form-signin" method="post" action="#">
+      <h2 class="form-signin-heading">Create Account</h2>
+      <p>
+        <label for="username" class="sr-only">Username</label>
+        <input type="text" id="username" th:field="*{username}" name="username" class="form-control" placeholder="Username *"  required=""
+               autofocus="">
+      <div class="alert alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+      </p>
+      <p>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" th:field="*{password}" id="password" name="password" class="form-control" placeholder="Password *"
+               required="">
+      <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+      </p>
+      <p>
+        <label for="repeat-password" class="sr-only">Repeat Password</label>
+        <input type="password" th:value="${password2}" id="repeat-password" name="password2" class="form-control" placeholder="Repeat Password *"
+               required="">
+      </p>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
+      <button onclick="location.href='/login'" type="button" class="btn btn-lg btn-secondary btn-block">Cancel</button>
+    </form>
+
+  </div>
+</div>
 
 </div>
 

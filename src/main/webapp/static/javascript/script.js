@@ -3,27 +3,29 @@ console.log("HELLO");
 $(document).ready(function () {
         $("#add-button").click(function () {
             $("#new-note").slideToggle();
+            $("#new-note-textArea").focus();
         });
 
     $("#cancel").click(function () {
         $("#new-note").slideToggle();
     });
 
-  /*  $(".edit-note").click(function (){
-        $("#new-note").slideToggle();
-        $("#new-note-textArea").text($("#current-note1").text());
-    });
-*/
 
 
-    //specificSpan
 });
-
 
 function editNote(id){
-$(document).ready(function (){
+    $(document).ready(function (){
+        $(".edit-buttons").slideUp()
+        $("#edit-area_"+id).focus()
+        $("#"+id).slideToggle();
+    });
+}
 
-     $("#new-note").slideToggle();
-     $("#new-note-textArea").text($("#current-note"+id).text());
-});
+function editNoteFromTextArea(id){
+    $(document).ready(function (){
+        $(".edit-buttons").slideUp();
+        var getId = id.split("_")
+        $("#"+getId[1]).slideToggle();
+    });
 }

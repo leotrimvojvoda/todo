@@ -1,8 +1,8 @@
 body {
     text-align: center;
-    background-color: #f9f9fb;
+    background: rgb(230,255,230);
+    background: radial-gradient(circle, rgba(230,255,230,1) 0%, rgba(228,223,249,1) 100%);
 }
-
 #dropdown-item-logout{color: red;}
 
 .wrapper{
@@ -17,6 +17,10 @@ body {
 #navbar-user{
     margin-left: 88%;
 }
+
+.navbar{
+    border-bottom: solid green 1px;
+}
 #search-field{
     width: 50%;
 }
@@ -29,4 +33,11 @@ body {
     width: 50pt;
     height: 50pt;
     font-size: 25pt;
+}
+
+
+<!-- SETTINGS -->
+
+.settings-form{
+    background-color: white;
 }

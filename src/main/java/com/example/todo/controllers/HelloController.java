@@ -52,7 +52,7 @@ public class HelloController {
         String currentPrincipalName = authentication.getName();
         String username = currentPrincipalName.substring(0, 1).toUpperCase() + currentPrincipalName.substring(1);
         //Add username to model
-        model.addAttribute("user",username);
+        model.addAttribute("username",username);
         log.info("Logged in as:" +username);
         //Get user id
         Optional<User> u = userRepository.findUserByUsername(currentPrincipalName);
@@ -73,11 +73,21 @@ public class HelloController {
     }
 
     @GetMapping("/settings")
+    public String settings(@RequestParam String username, Model model){
+        log.error(username);
+        model.addAttribute("user", userRepository.findUserByUsername(username.toLowerCase()).get());
+        model.addAttribute("username", username);
+         return "settings";
+    }
+
+    /*
+    *  @GetMapping("/settings")
     public String settings(@RequestParam String user, Model model){
         log.info(user);
         model.addAttribute("user", user);
          return "settings";
     }
+    * */
 
     @GetMapping("/register")
     public String register(Model model){
