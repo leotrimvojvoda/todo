@@ -1,7 +1,5 @@
 console.log("HELLO");
 
-alert("in SETTINGS, add buttons to the table that show or hide stuff")
-
 $(document).ready(function () {
         $("#add-button").click(function () {
             $("#new-note").slideToggle();
@@ -12,46 +10,71 @@ $(document).ready(function () {
         $("#new-note").slideToggle();
     });
 
-    let tableClass = ".edit-profile-options";
+    function hideTable(){
+        $(".cancel").fadeOut();
+        $(".edit-profile-options").slideUp();
+    }
 
-    function hideTable(){$(tableClass).slideUp();}
+    function showTable(){
+        $(".edit-profile").fadeOut(function (){
+            $(".edit-profile-options").slideDown(function (){
+                $(".cancel").fadeIn();
+            });
+        });
+    }
 
     function fadeInFlex(className){
         $(className).fadeIn().css("display", "flex");
     }
 
-    /*Show change username*/
+
     /*
-    $(tableClass).click(function (){
-        hideTable();
-        fadeInFlex('.change-username');
-    });
-     */
-
-
-    /*Show change password
-      $(tableClass).click(function (){
-        hideTable();
-        $(".change-password").fadeIn();
-    });
+    *
+    *     SHOW FORMS HIDE TABLE
+    *
     * */
 
-    /*Show Reset tasks
-
-    $(tableClass).click(function (){
+    /*Show change username*/
+    $(".change-username").click(function (){
+        console.log("RAN CHANGE USERNAME");
         hideTable();
-        $(".reset-tasks").fadeIn();
+        fadeInFlex('.change-username-form');
     });
-*/
+
+
+    /*Show change password*/
+      $(".change-password").click(function (){
+          console.log("RAN CHANGE PASSWORD");
+        hideTable();
+        $(".change-password-form").fadeIn();
+    });
+
+    /*Show Reset tasks*/
+    $(".reset-tasks").click(function (){
+        console.log("RAN RESET TASK");
+        hideTable();
+        $(".reset-tasks-form").fadeIn();
+    });
 
     /*Show Delete Account*/
-
-    $(tableClass).click(function (){
+    $(".delete-account").click(function (){
+        console.log("RAN DELETE ACCOUNT");
         hideTable();
-        $(".delete-account").fadeIn();
+        $(".delete-account-form").fadeIn();
     });
 
+    $(".change-cancel").click(function (){
+        showTable();
+    });
 });
+
+
+/*
+*
+*FUNCTIONS
+*
+*/
+
 
 function editNote(id){
     $(document).ready(function (){
@@ -68,3 +91,15 @@ function editNoteFromTextArea(id){
         $("#"+getId[1]).slideToggle();
     });
 }
+
+/*
+function back(){
+    $(document).ready(function (){
+        $(".change-cancel").fadeOut();
+        $(".edit-profile").slideUp(
+            function (){
+                $(".edit-profile-options").slideDown();
+            }
+        );
+    });
+}*/

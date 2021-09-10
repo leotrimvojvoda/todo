@@ -46,56 +46,61 @@
 
     <!-- MAIN -->
     <div class="edit-profile-options">
-      <table class="table table-light edit-profile-table">
-        <tr>
-          <td>Change Username</td>
-        </tr>
-        <tr>
-          <td>Change Password</td>
-        </tr>
-        <tr>
-          <td>Reset Tasks</td>
-        </tr>
-        <tr>
-          <td>Delete Account</td>
-        </tr>
-      </table>
+      <p>
+        <button type="button" class="btn btn-light options change-username">Change Username</button>
+      </p>
+      <p>
+        <button type="button" class="btn btn-light options change-password">Change Password</button>
+      </p>
+      <p>
+        <button type="button" class="btn btn-light options reset-tasks">Reset Tasks</button>
+      </p>
+      <p>
+        <button type="button" class="btn btn-light options delete-account">Delete Account</button>
+      </p>
     </div>
 
     <!-- CHANGE USERNAME -->
 
-    <div class="edit-profile">
-      <form class="change-form change-username">
+    <div class="edit-profile change-username-form">
+      <form class="change-form">
         <label for="username" class="sr-only">Username</label>
         <input type="text" id="username" class="form-control" placeholder="New Username*">
-        <button onclick="location.href='#'" type="button" class="btn btn-outline-success my-2 my-sm-0">Save</button>
+        <button type="button" class="btn btn-outline-success my-2 my-sm-0">Save</button>
       </form>
     </div>
 
     <!-- CHANGE PASSWORD -->
-    <div class="edit-profile">
-      <form class="change-form change-password">
-        <label for="current-password" class="sr-only">Username</label>
+    <div class="edit-profile change-password-form">
+      <form class="change-form">
+        <label for="current-password" class="sr-only">Password</label>
         <input type="text" id="current-password" class="form-control password input" placeholder="Current Password">
         <label for="password" class="sr-only">Username</label>
         <input type="text" id="password" class="form-control password input" placeholder="New Password">
-        <button onclick="location.href='#'" type="button" class="btn btn-outline-success my-2 my-sm-0 password input">Save</button>
+        <button  type="button" class="btn btn-outline-success my-2 my-sm-0 password input">Save</button>
+        <br><br>
+        <button type="button" class="btn btn-outline-secondary my-2 my-sm-0 password input change-cancel">Back</button>
       </form>
     </div>
 
     <!-- RESET TASKS -->
 
-    <div class="edit-profile">
-      <form class="change-form reset-tasks">
-        <button onclick="location.href='#'" type="button" class="btn btn-outline-warning my-2 my-sm-0 password input">Delete All Tasks</button>
+    <div class="edit-profile reset-tasks-form">
+      <form class="change-form">
+        <button type="button" class="btn btn-outline-warning my-2 my-sm-0 password input">Delete All Tasks</button>
+        <br><br>
+        <button type="button"class="btn btn-outline-secondary my-2 my-sm-0 password input change-cancel">Back</button>
       </form>
+
     </div>
 
     <!-- DELETE ACCOUNT -->
 
-    <div class="edit-profile">
-      <form class="change-form delete-account">
-        <button onclick="location.href='#'" type="button" class="btn btn-outline-danger my-2 my-sm-0 password input">Delete Account</button>
+    <div class="edit-profile  delete-account-form">
+      <form class="change-form">
+        <button type="button" class="btn btn-outline-danger my-2 my-sm-0 password input">Delete Account</button>
+        <br><br>
+        <button type="button"class="btn btn-outline-secondary my-2 my-sm-0 password input change-cancel">Back</button>
       </form>
     </div>
 
@@ -125,7 +130,7 @@
       </div>
     </form>-->
 
-    <button onclick="location.href='/'" type="button" class="btn btn-outline-secondary my-2 my-sm-0" id="cancel">Cancel</button>
+    <button onclick="location.href='/'" type="button" class="btn btn-outline-secondary my-2 my-sm-0 cancel" id="cancel">Cancel</button>
   </div>
 
 </div>
