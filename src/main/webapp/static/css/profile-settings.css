@@ -1,7 +1,6 @@
 .wrapper{
     text-align: center;
 }
-
 .btn-outline-secondary{
     width: 80%;
 }
@@ -21,6 +20,7 @@
     text-align: left;
     margin: 20pt;
 }
+
 p{
     margin-bottom: 1pt;
 }
@@ -35,7 +35,12 @@ p{
 
 /*Username*/
 .change-form{
-    margin: 20pt;
+    margin: 30pt;
+
+}
+
+.change-username-form{
+    width: 100%;
 }
 
 .edit-profile{
@@ -43,7 +48,8 @@ p{
 }
 
 #username{
-    margin-right: 10pt;
+    width: 245pt;
+    margin-top: 0;
 }
 
 /*Password*/

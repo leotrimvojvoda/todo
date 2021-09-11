@@ -34,3 +34,7 @@ body {
     height: 50pt;
     font-size: 25pt;
 }
+
+#username{
+    width: 100%;
+}

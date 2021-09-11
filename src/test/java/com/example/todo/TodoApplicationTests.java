@@ -67,4 +67,11 @@ class TodoApplicationTests {
 
     }
 
+    @Test
+    void testPasswordMateches(){
+
+
+        System.out.println("DO PASSWORDS MATCH ? "+passwordEncoder.matches("leo","$2a$10$qCiSlgin99ydaFQu7LbRqehSp8ucJk3jQORrbgoeyAaKGty4cWFmi"));
+    }
+
 }

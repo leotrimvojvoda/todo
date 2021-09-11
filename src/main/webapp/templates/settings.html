@@ -62,22 +62,41 @@
 
     <!-- CHANGE USERNAME -->
 
+
+
     <div class="edit-profile change-username-form">
-      <form class="change-form">
+      <form class="change-form" th:action="@{/updateUser}" th:object="${user}" method="post">
         <label for="username" class="sr-only">Username</label>
-        <input type="text" id="username" class="form-control" placeholder="New Username*">
-        <button type="button" class="btn btn-outline-success my-2 my-sm-0">Save</button>
+        <input type="text" id="username" name="newUsername" class="form-control password input" placeholder="New Username* " required minlength="3">
+        <input type="text" name="currentPassword" class="form-control password input" style="display:none;">
+        <input type="text" name="newPassword" class="form-control password input" style="display:none;">
+        <input type="text" name="username" th:value="${user.username}" style="display: none">
+        <input type="text" name="id" th:value="${user.id}" style="display: none">
+        <input type="text" name="password" th:value="${user.password}" style="display: none">
+        <input type="text" name="enabled" th:value="${user.enabled}" style="display: none">
+        <button  type="submit" class="btn btn-outline-success my-2 my-sm-0 password input">Save</button>
+        <br><br>
+        <button type="button" class="btn btn-outline-secondary my-2 my-sm-0 password input change-cancel">Back</button>
       </form>
     </div>
 
     <!-- CHANGE PASSWORD -->
     <div class="edit-profile change-password-form">
-      <form class="change-form">
-        <label for="current-password" class="sr-only">Password</label>
-        <input type="text" id="current-password" class="form-control password input" placeholder="Current Password">
-        <label for="password" class="sr-only">Username</label>
-        <input type="text" id="password" class="form-control password input" placeholder="New Password">
-        <button  type="button" class="btn btn-outline-success my-2 my-sm-0 password input">Save</button>
+      <form class="change-form" th:action="@{/updateUser}" th:object="${user}" method="post">
+        <!--Visible part of the form-->
+        <label for="currentPassword" class="sr-only">Password</label>
+        <input type="text" id="currentPassword" name="currentPassword" class="form-control password input" placeholder="Current Password">
+        <label for="newPassword" class="sr-only">New Password</label>
+        <input type="text" id="newPassword" name ="newPassword" class="form-control password input" placeholder="New Password">
+        <!--Empty but required by the Controller Method-->
+        <input type="text" name="newUsername" class="form-control password input" style="display:none;">
+        <!--The object's data-->
+        <input type="text" name="username" th:value="${user.username}" style="display: none">
+        <input type="text" name="id" th:value="${user.id}" style="display: none">
+        <input type="text" name="password" th:value="${user.password}" style="display: none">
+        <input type="text" name="enabled" th:value="${user.enabled}" style="display: none">
+        <!--Visible part of the form-->
+        <button  type="submit" class="btn btn-outline-success my-2 my-sm-0 password input">Save</button>
         <br><br>
         <button type="button" class="btn btn-outline-secondary my-2 my-sm-0 password input change-cancel">Back</button>
       </form>
@@ -103,32 +122,6 @@
         <button type="button"class="btn btn-outline-secondary my-2 my-sm-0 password input change-cancel">Back</button>
       </form>
     </div>
-
-
-<!--    <form  th:object="${user}" th:action="@{/save}" class="edit-profile" method="post" action="#" >
-      <h2 class="form-signin-heading">Profile Settings</h2>
-      <p>
-        <label for="username" class="sr-only">Username</label>
-        <input type="text" id="username" th:field="*{username}" name="username" class="form-control" placeholder="Username *"  required=""
-               autofocus="">
-      <div class="alert alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
-      </p>
-      <p>
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" th:field="*{password}" id="password" name="password" class="form-control" placeholder="Current Password*"
-               required="">
-      <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-      </p>
-      <p>
-        <label for="repeat-password" class="sr-only">Password</label>
-        <input type="text" th:value="${password2}" id="repeat-password" name="password2" class="form-control" placeholder="New Password*"
-               required="">
-      </p>
-      <div class="edit-profile-buttons">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Save Changes</button>
-        <button onclick="location.href='#'" type="button" class="btn btn-lg btn-danger btn-block">Delete Account</button>
-      </div>
-    </form>-->
 
     <button onclick="location.href='/'" type="button" class="btn btn-outline-secondary my-2 my-sm-0 cancel" id="cancel">Cancel</button>
   </div>

@@ -5,9 +5,11 @@ import com.example.todo.data.TaskRepositoryService;
 import com.example.todo.data.UserRepository;
 import com.example.todo.entities.Task;
 import com.example.todo.entities.User;
+import com.example.todo.security.SecurityUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -46,6 +48,9 @@ public class HelloController {
 
     @GetMapping("/")
     public String hello(Model model){
+         log.warn("WARNING");
+         log.warn("Do not forget to reset the input fields in javascript when the back button is pressed!");
+         log.warn("WARNING");
         //Get current username and uppercase the first char
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
@@ -93,6 +98,7 @@ public class HelloController {
         //Check passwords match
         if(user.getPassword().equals(password2)) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setEnabled(true);
             userRepository.save(user);
         } else return "register";
 
@@ -129,5 +135,53 @@ public class HelloController {
         log.info(task.toString());
 
         return "redirect:/";
+    }
+
+    @PostMapping("/updateUser")
+    public String updateUser(@ModelAttribute("user") User u,
+                             @RequestParam String newUsername,
+                             @RequestParam String currentPassword,
+                             @RequestParam String newPassword,
+                             Model model){
+
+         log.info("New Username "+newUsername);
+         log.info(" > > >");
+         log.info(u.toString());
+         log.info(" > > >");
+
+
+        if(newUsername.length() >= 3 || (!currentPassword.isBlank() && !newPassword.isBlank())){
+
+             Optional<User> user = userRepository.findUserByUsername(u.getUsername().toLowerCase());
+             user.orElseThrow(() -> new UsernameNotFoundException("Username '"+u.getUsername()+"' not found!"));
+             User tempUser = user.get();
+
+             if( ! newUsername.isBlank()){
+                 tempUser.setUsername(newUsername);
+             }else if(!currentPassword.isBlank() && !newPassword.isBlank()){
+                 log.info("current and new are not blank");
+                 if(passwordEncoder.matches(currentPassword,tempUser.getPassword()))
+                     log.info("current passwords match");
+                     tempUser.setPassword(passwordEncoder.encode(newPassword));
+             }else log.error("/updateUser -> Error changing username or password");
+
+             SecurityUser securityUser = new SecurityUser(tempUser);
+             log.info(securityUser.toString());
+
+             Authentication authentication = new UsernamePasswordAuthenticationToken(securityUser, securityUser.getPassword(), securityUser.getAuthorities());
+             SecurityContextHolder.getContext().setAuthentication(authentication);
+             userRepository.save(tempUser);
+
+             model.addAttribute("username", tempUser.getUsername());
+
+             log.warn(tempUser.toString());
+
+             return "/settings";
+         }else log.error("Sorry the username or password are long enough");
+
+
+        model.addAttribute("username", u.getUsername());
+
+         return "/settings";
     }
 }
