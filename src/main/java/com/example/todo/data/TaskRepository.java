@@ -9,6 +9,7 @@ public interface TaskRepository extends CrudRepository<Task,Integer> {
 
     List<Task> getTasksByUserId(int id);
 
+    void deleteAllByUserId(int id);
 
-
+    void removeAllById(int id);
 }

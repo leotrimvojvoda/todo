@@ -18,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -49,17 +51,20 @@ public class HelloController {
     @GetMapping("/")
     public String hello(Model model){
          log.warn("WARNING");
+        log.warn("Update Delete account and Reset tasks to use the user.id directly and not username , getbyUsername....");
          log.warn("Do not forget to reset the input fields in javascript when the back button is pressed!");
+         log.warn("Do not forget to check if a new username already exists in the database before trying to update it");
+         log.info("Double click on one to focus on textArea / edit note");
          log.warn("WARNING");
         //Get current username and uppercase the first char
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        String username = currentPrincipalName.substring(0, 1).toUpperCase() + currentPrincipalName.substring(1);
+        String username = authentication.getName();
+
         //Add username to model
         model.addAttribute("username",username);
         log.info("Logged in as:" +username);
         //Get user id
-        Optional<User> u = userRepository.findUserByUsername(currentPrincipalName);
+        Optional<User> u = userRepository.findUserByUsername(username);
         u.orElseThrow(() -> new UsernameNotFoundException("User not found: "+username));
 
         int id = u.get().getId();
@@ -106,11 +111,13 @@ public class HelloController {
         return "login";
     }
 
+
     @PostMapping("/saveTask")
     public String saveTask(@ModelAttribute("task") Task task){
          log.info("Task saved or updated: "+task.toString());
          //If id = 0 than it is a new task, and if id is something else than it is an existing task that will be updated
          if(task.getId() == 0){
+             task.setText(task.getText().trim());
              taskRepository.save(task);
          }else {
              try {
@@ -123,9 +130,21 @@ public class HelloController {
         return "redirect:/";
     }
 
+    @Transactional
     @GetMapping("/deleteTask")
-    public String deleteTask(@RequestParam String id){
-         taskRepository.deleteById(Integer.parseInt(id));
+    public String deleteTask(@RequestParam String id, String userId){
+
+        log.info("Delete task user id > "+userId);
+
+         if(!id.equals("0") || !userId.isBlank()){
+
+             if(!id.equals("0")){
+                 taskRepository.deleteById(Integer.parseInt(id));
+             }else{
+                 taskRepository.deleteAllByUserId(Integer.parseInt(userId));
+             }
+
+         }else log.error("Error deleting one or more tasks");
         return "redirect:/";
     }
 
@@ -143,12 +162,6 @@ public class HelloController {
                              @RequestParam String currentPassword,
                              @RequestParam String newPassword,
                              Model model){
-
-         log.info("New Username "+newUsername);
-         log.info(" > > >");
-         log.info(u.toString());
-         log.info(" > > >");
-
 
         if(newUsername.length() >= 3 || (!currentPassword.isBlank() && !newPassword.isBlank())){
 
@@ -173,15 +186,25 @@ public class HelloController {
              userRepository.save(tempUser);
 
              model.addAttribute("username", tempUser.getUsername());
-
-             log.warn(tempUser.toString());
-
              return "/settings";
+
          }else log.error("Sorry the username or password are long enough");
 
-
         model.addAttribute("username", u.getUsername());
-
          return "/settings";
+    }
+
+    @Transactional
+    @PostMapping("/deleteUser")
+    public String deleteAccount(@RequestParam String id) {
+
+        Optional<User> u = userRepository.findById(Integer.parseInt(id));
+
+        User user = u.orElseThrow(() -> new UsernameNotFoundException("User ["+id+"] not found"));
+
+        taskRepository.deleteAllByUserId(user.getId());
+        userRepository.delete(user);
+
+        return "redirect:/logout";
     }
 }

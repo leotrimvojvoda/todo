@@ -17,16 +17,15 @@ class TodoApplicationTests {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Autowired
-    UserRepositoryService userRepositoryService;
+
 
     @Test
     void contextLoads() {
 
         User u = new User();
         u.setEnabled(true);
-        u.setUsername("tanya");
-        u.setPassword(passwordEncoder.encode("tanya"));
+        u.setUsername("leo");
+        u.setPassword(passwordEncoder.encode("leo"));
 
 
        userRepository.save(u);
@@ -51,7 +50,7 @@ class TodoApplicationTests {
     @Test
     void setUserRepositoryServiceTest(){
 
-        System.out.println(">>>>TEST<<<<"+userRepositoryService);
+
 
         User u = new User("leotrimvojvoda",passwordEncoder.encode("leotrim"),true);
 
@@ -69,9 +68,8 @@ class TodoApplicationTests {
 
     @Test
     void testPasswordMateches(){
-
-
         System.out.println("DO PASSWORDS MATCH ? "+passwordEncoder.matches("leo","$2a$10$qCiSlgin99ydaFQu7LbRqehSp8ucJk3jQORrbgoeyAaKGty4cWFmi"));
     }
+
 
 }
