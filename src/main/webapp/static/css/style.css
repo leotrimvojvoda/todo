@@ -1,7 +1,7 @@
 body {
     text-align: center;
-    background: rgb(230,255,230);
-    background: radial-gradient(circle, rgba(230,255,230,1) 0%, rgba(228,223,249,1) 100%);
+    background: rgb(242,255,209);
+    background: radial-gradient(circle, rgba(242,255,209,1) 0%, rgba(225,223,249,1) 100%);
 }
 #dropdown-item-logout{color: red;}
 
@@ -37,4 +37,8 @@ body {
 
 #username{
     width: 100%;
+}
+
+.invisible{
+    display: none;
 }

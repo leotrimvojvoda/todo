@@ -37,7 +37,6 @@ A simple notes application using Spring Boot
 * Lombok
 
 # To be implemented
-* Profile Settings: Change password, delete profile
 * Search
 * UI improvements, and more feedback for the user
 

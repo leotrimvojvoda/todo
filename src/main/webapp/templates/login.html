@@ -10,10 +10,13 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="../static/css/style.css" rel="stylesheet"/>
+    <link href="../static/css/tasks.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
     <form class="form-signin" method="post" action="/login">
+        <input type="text" name="search" th:value="search" style="display: none">
         <h2 class="form-signin-heading">Please login</h2>
         <p>
             <label for="username" class="sr-only">Username</label>
@@ -30,8 +33,9 @@
             <input type="checkbox" id="remember-me" name="remember-me" class="form-control">
         </p>-->
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-        <button onclick="location.href=' /register'" type="button" class="btn btn-lg btn-secondary btn-block" id="logout">Sign Up</button>
+        <button class="btn btn-outline-success btn-block" type="submit">Login</button>
+        <button onclick="location.href=' /register'" type="button" class="btn btn-outline-primary btn-block" id="logout">Sign Up</button>
+
     </form>
 </div>
 </body>

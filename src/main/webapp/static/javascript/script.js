@@ -92,6 +92,12 @@ function editNoteFromTextArea(id){
     });
 }
 
+function changeText(){
+    $(document).readOnly(function (){
+        $("someText").load("https://cros-anywhere.herokuapp.com/http://carnes.cc/code/ajax_example.txt");
+    })
+}
+
 /*
 function back(){
     $(document).ready(function (){

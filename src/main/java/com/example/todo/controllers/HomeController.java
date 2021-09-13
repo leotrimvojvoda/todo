@@ -21,13 +21,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class HelloController {
+public class HomeController {
 
-    Logger log = LoggerFactory.getLogger(HelloController.class);
+    Logger log = LoggerFactory.getLogger(HomeController.class);
 
      private final UserRepository userRepository;
      private final PasswordEncoder passwordEncoder;
@@ -35,8 +36,8 @@ public class HelloController {
      private final TaskRepositoryService taskRepositoryService;
 
      @Autowired
-     public HelloController(UserRepository userRepository, PasswordEncoder passwordEncoder,
-                            TaskRepository taskRepository,TaskRepositoryService taskRepositoryService) {
+     public HomeController(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                           TaskRepository taskRepository, TaskRepositoryService taskRepositoryService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.taskRepository = taskRepository;
@@ -44,18 +45,19 @@ public class HelloController {
      }
 
     @GetMapping("/login")
-    public String login(){
+    public String login(Model model){
+         model.addAttribute("foundTasks", new ArrayList<Task>());
         return "login";
     }
 
     @GetMapping("/")
-    public String hello(Model model){
+    public String hello(Model model/*, @RequestParam String search*/){
          log.warn("WARNING");
-        log.warn("Update Delete account and Reset tasks to use the user.id directly and not username , getbyUsername....");
          log.warn("Do not forget to reset the input fields in javascript when the back button is pressed!");
          log.warn("Do not forget to check if a new username already exists in the database before trying to update it");
          log.info("Double click on one to focus on textArea / edit note");
          log.warn("WARNING");
+         //log.info("SEARCH >>> "+search);
         //Get current username and uppercase the first char
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -206,5 +208,12 @@ public class HelloController {
         userRepository.delete(user);
 
         return "redirect:/logout";
+    }
+
+    @PostMapping("/search")
+    public String search(){
+         log.info(" ±±± SEARCHING ±±±");
+
+         return "redirect:/";
     }
 }
