@@ -56,9 +56,7 @@
     <div class="add-button" id="add-button-div">
         <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="add-button">+</button>
     </div>
-
     <!--NEW TASK-->
-
     <div class="notes">
         <div class="new-note" id="new-note">
             <form  th:object="${newTask}" th:action="@{/saveTask}" class="new-note-form" method="post" action="#">
@@ -71,15 +69,15 @@
             </form>
         </div>
 
+
         <!--TASKS, DELETE, EDIT-->
-        <table>
+        <table class="notes-table">
             <tr th:each="task: ${tasks}">
                 <div class="note">
                     <div class="note-text">
                        <!-- <p th:id="'current-note' + ${taskStat.index}" th:text="${task.text}"></p>-->
                         <form  th:object="${task}" th:action="@{/saveTask}" class="edit-note-form" method="post" action="#">
                             <br>
-
                             <textarea name="text" th:text="${task.text}"
                                       class="edit-textarea" th:id="'edit-area_'+${taskStat.index}" onclick="editNoteFromTextArea(this.id)" required=""></textarea>
                             <input type="text" name="id" th:value="${task.id}" style="display: none">
@@ -90,14 +88,11 @@
                           </div>
                         </form>
                     </div>
-
-
                     <div class="note-buttons">
                         <div id="edit">
                             <button type="button" th:id="${taskStat.index}" onclick="editNote(this.id)"
                                     class="btn btn-outline-warning my-2 my-sm-0 edit-note"></button>
                         </div>
-
                        <div id="delete">
                            <form  th:action="@{/deleteTask}">
                                <input type="text" name="id" th:value="${task.id}" style="display: none">
@@ -105,7 +100,6 @@
                            </form>
                        </div>
                     </div>
-
 
                     <!---
                      <span th:text="${taskStat.index} + ': ' + ${task.text}" id="specificSpan"></span>

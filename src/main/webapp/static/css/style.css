@@ -42,3 +42,8 @@ body {
 .invisible{
     display: none;
 }
+
+.this-is-awesome{
+    background-color: blueviolet;
+    color: red;
+}

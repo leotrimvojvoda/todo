@@ -1,6 +1,21 @@
-console.log("HELLO");
+console.log("Todo App - Logging...");
 
 $(document).ready(function () {
+/*
+    $notes = $('.notes-table');
+    $.ajax({type: 'GET',
+        url: 'api/getTasks',
+        success: function (tasks){
+            $.each(tasks, function (i, task){
+                $notes.append('<h1 class=\"this-is-awesome\">'+task.text+'</h1>');
+            });
+        },
+        error: function (){
+            alert("Error loading tasks");
+        }
+    });*/
+
+
         $("#add-button").click(function () {
             $("#new-note").slideToggle();
             $("#new-note-textArea").focus();
@@ -19,6 +34,7 @@ $(document).ready(function () {
         $(".edit-profile").fadeOut(function (){
             $(".edit-profile-options").slideDown(function (){
                 $(".cancel").fadeIn();
+                $(".input").val('');
             });
         });
     }

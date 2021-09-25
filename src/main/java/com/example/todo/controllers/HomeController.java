@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class HomeController {
@@ -44,16 +42,15 @@ public class HomeController {
         this.taskRepositoryService = taskRepositoryService;
      }
 
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public String login(Model model){
          model.addAttribute("foundTasks", new ArrayList<Task>());
         return "login";
     }
 
-    @GetMapping("/")
+    @RequestMapping("/")
     public String hello(Model model/*, @RequestParam String search*/){
          log.warn("WARNING");
-         log.warn("Do not forget to reset the input fields in javascript when the back button is pressed!");
          log.warn("Do not forget to check if a new username already exists in the database before trying to update it");
          log.info("Double click on one to focus on textArea / edit note");
          log.warn("WARNING");
@@ -75,6 +72,8 @@ public class HomeController {
 
         List<Task> tasks = taskRepository.getTasksByUserId(id);
 
+        Collections.reverse(tasks);
+
         //Add tasks to model
         model.addAttribute("tasks",tasks);
 
@@ -83,14 +82,14 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/settings")
+    @RequestMapping("/settings")
     public String settings(@RequestParam String username, Model model){
         model.addAttribute("user", userRepository.findUserByUsername(username.toLowerCase()).get());
         model.addAttribute("username", username);
          return "settings";
     }
 
-    @GetMapping("/register")
+    @RequestMapping("/register")
     public String register(Model model){
         model.addAttribute("user",new User());
         return "register";
@@ -171,21 +170,26 @@ public class HomeController {
              user.orElseThrow(() -> new UsernameNotFoundException("Username '"+u.getUsername()+"' not found!"));
              User tempUser = user.get();
 
-             if( ! newUsername.isBlank()){
-                 tempUser.setUsername(newUsername);
-             }else if(!currentPassword.isBlank() && !newPassword.isBlank()){
-                 log.info("current and new are not blank");
-                 if(passwordEncoder.matches(currentPassword,tempUser.getPassword()))
-                     log.info("current passwords match");
-                     tempUser.setPassword(passwordEncoder.encode(newPassword));
-             }else log.error("/updateUser -> Error changing username or password");
+             if(!userRepository.existsUserByUsername(newUsername)){
+                 if( ! newUsername.isBlank()){
+                     tempUser.setUsername(newUsername);
+                 }else if(!currentPassword.isBlank() && !newPassword.isBlank()){
+                     log.info("current and new are not blank");
+                     if(passwordEncoder.matches(currentPassword,tempUser.getPassword())) {
+                         log.info("current passwords match");
+                         tempUser.setPassword(passwordEncoder.encode(newPassword));
+                         SecurityUser securityUser = new SecurityUser(tempUser);
+                         log.info(securityUser.toString());
+                         Authentication authentication = new UsernamePasswordAuthenticationToken(securityUser, securityUser.getPassword(), securityUser.getAuthorities());
+                         SecurityContextHolder.getContext().setAuthentication(authentication);
+                         userRepository.save(tempUser);
+                     }
+                 }else log.error("/updateUser -> Error changing username or password");
+             }log.error("The user \""+newUsername+"\" already exists in the database ");
 
-             SecurityUser securityUser = new SecurityUser(tempUser);
-             log.info(securityUser.toString());
 
-             Authentication authentication = new UsernamePasswordAuthenticationToken(securityUser, securityUser.getPassword(), securityUser.getAuthorities());
-             SecurityContextHolder.getContext().setAuthentication(authentication);
-             userRepository.save(tempUser);
+
+
 
              model.addAttribute("username", tempUser.getUsername());
              return "/settings";

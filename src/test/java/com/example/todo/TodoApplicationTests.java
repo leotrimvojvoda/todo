@@ -36,7 +36,8 @@ class TodoApplicationTests {
 
     @Test
     void existsTest(){
-        System.out.println(userRepository.existsUserByUsername("tom"));
+        //System.out.println(userRepository.existsUserByUsername("tom"));
+
     }
 
     @Test

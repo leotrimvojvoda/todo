@@ -12,4 +12,5 @@ public interface TaskRepository extends CrudRepository<Task,Integer> {
     void deleteAllByUserId(int id);
 
     void removeAllById(int id);
+
 }

@@ -31,8 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")// THE LOGIN PAGE CAN BE FOUND IN THE MAIN CRONTROLER /login.
                 .permitAll()
                 .and();
-               // .rememberMe()//Allow remember me option
-               // .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21)); // Remember for 21 days
+                // .rememberMe()//Allow remember me option
+             // .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21)); // Remember for 21 days
 
     }
 

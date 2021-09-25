@@ -3,8 +3,6 @@ package com.example.todo.entities;
 import com.example.todo.entities.validation.Username;
 import lombok.Data;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
